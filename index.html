@@ -12,7 +12,7 @@
     <div class="audio-control">
         <button id="musicToggle" class="music-btn" title="Ativar/Desativar música">
             <svg viewBox="0 0 24 24" width="24" height="24">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.26 2.5-4.02zM14 3.1v2.7c2.89.86 5 3.54 5 6.8s-2.11 5.94-5 6.8v2.7c4.01-.91 7-4.49 7-9.5s-2.99-8.59-7-9.5z"/>
+                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.26 2.5-4.02zM14 3.1v2.7c2.89.86 5 3.54 5 6.8s-2.11 5.94-5 6.8v2.7c4.01-.91 7-4.49 7-9.5s-2.99-8.59-7-9.5z" fill="currentColor"></path>
             </svg>
         </button>
         <audio id="bgMusic" loop>
@@ -109,7 +109,34 @@
                 <h2>Mapa da Nossa História</h2>
                 <button class="close-btn" onclick="goToMenu()">✕</button>
             </div>
-            <div class="scene-content"><p>Momentos especiais...</p></div>
+            <div class="scene-content">
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="date">Primeiro Encontro</div>
+                            <h3>Nosso Início</h3>
+                            <p>O momento que mudou tudo para nós...</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="date">Primeiro Beijo</div>
+                            <h3>Momento Mágico</h3>
+                            <p>Uma promessa de futuro juntos...</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="date">Hoje</div>
+                            <h3>Nossa Jornada</h3>
+                            <p>Continuamos escrevendo nossa história...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Scene: Memories -->
@@ -118,7 +145,15 @@
                 <h2>Caça às Memórias</h2>
                 <button class="close-btn" onclick="goToMenu()">✕</button>
             </div>
-            <div class="scene-content" id="memoriesGrid"></div>
+            <div class="scene-content">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="memoryProgress"></div>
+                </div>
+                <div class="progress-text">
+                    Memórias encontradas: <span id="memoriesFound">0</span>/6
+                </div>
+                <div class="memories-grid" id="memoriesGrid"></div>
+            </div>
         </section>
 
         <!-- Scene: Vault -->
@@ -130,8 +165,17 @@
             <div class="scene-content">
                 <div class="vault-container">
                     <div class="vault-icon">🔐</div>
-                    <input type="password" id="vaultPassword" placeholder="Senha" class="vault-input">
+                    <p>Existe um segredo aqui...</p>
+                    <p class="hint">Dica: Pense no que significamos um para o outro</p>
+                    <div class="vault-input-group">
+                        <input type="password" id="vaultPassword" placeholder="Digite a senha" class="vault-input">
+                    </div>
                     <button class="btn btn-primary" onclick="checkVaultPassword()">Abrir</button>
+                    <div id="vaultContent" class="vault-content hidden">
+                        <h3>Segredo Desbloqueado! 🎉</h3>
+                        <p>Você descobriu nosso segredo especial!</p>
+                        <p class="secret-message">Você é meu maior tesouro ❤️</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -142,7 +186,19 @@
                 <h2>Quiz Romântico</h2>
                 <button class="close-btn" onclick="goToMenu()">✕</button>
             </div>
-            <div class="scene-content" id="quizContainer"></div>
+            <div class="scene-content">
+                <div class="quiz-container" id="quizContainer"></div>
+                <div id="quizResult" class="hidden">
+                    <div class="scene-content">
+                        <div style="text-align: center; padding: 40px;">
+                            <h2 style="margin-bottom: 30px;">Seus Resultados</h2>
+                            <div id="resultContent"></div>
+                            <button class="btn btn-primary" style="margin-top: 30px;" onclick="resetQuiz()">Refazer Quiz</button>
+                            <button class="btn btn-secondary" style="margin-top: 15px;" onclick="goToMenu()">Voltar ao Menu</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Scene: Games -->
@@ -157,11 +213,53 @@
                         <span>🧩</span> Memória
                     </button>
                     <button class="game-card" onclick="startGame('hearts')">
-                        <span>❤️</span> Corações
+                        <span>❤️</span> Chuva de Corações
+                    </button>
+                    <button class="game-card" onclick="startGame('puzzle')">
+                        <span>🧩</span> Puzzle
                     </button>
                 </div>
             </div>
         </section>
+
+        <!-- Game Containers -->
+        <div id="memoryGame" class="game-container hidden">
+            <div class="scene-header">
+                <h2>Jogo da Memória</h2>
+                <button class="close-btn" onclick="goToMenu()">✕</button>
+            </div>
+            <div class="scene-content">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    Tentativas: <span id="attempts">0</span>
+                </div>
+                <div id="memoryBoard" class="memory-board"></div>
+                <button class="btn btn-primary" style="margin-top: 20px;" onclick="goToMenu()">Voltar</button>
+            </div>
+        </div>
+
+        <div id="heartsGame" class="game-container hidden">
+            <div class="scene-header">
+                <h2>Chuva de Corações</h2>
+                <button class="close-btn" onclick="goToMenu()">✕</button>
+            </div>
+            <div id="heartsContainer" class="hearts-container"></div>
+            <div style="position: fixed; bottom: 20px; left: 20px; background: rgba(255,107,157,0.2); padding: 15px 25px; border-radius: 8px; border: 1px solid rgba(255,107,157,0.5);">
+                Coletados: <span id="heartsCollected">0</span>/15
+            </div>
+        </div>
+
+        <div id="puzzleGame" class="game-container hidden">
+            <div class="scene-header">
+                <h2>Puzzle</h2>
+                <button class="close-btn" onclick="goToMenu()">✕</button>
+            </div>
+            <div class="scene-content">
+                <div id="puzzlePreview" class="puzzle-preview"></div>
+                <div id="puzzleBoard" class="puzzle-board"></div>
+                <button class="btn btn-primary" style="margin-top: 20px;" onclick="resetPuzzle()">Resetar</button>
+                <button class="btn btn-secondary" style="margin-top: 20px; margin-left: 10px;" onclick="goToMenu()">Voltar</button>
+            </div>
+        </div>
 
         <!-- Scene: Letter -->
         <section id="letter" class="scene hidden">
@@ -169,7 +267,10 @@
                 <h2>Carta Romântica</h2>
                 <button class="close-btn" onclick="goToMenu()">✕</button>
             </div>
-            <div class="scene-content"><div id="letterText" class="letter-text"></div></div>
+            <div class="scene-content">
+                <button class="btn btn-primary" style="margin-bottom: 30px;" onclick="startLetterAnimation()">Ler Carta</button>
+                <div id="letterText" class="letter-text"></div>
+            </div>
         </section>
 
         <!-- Scene: Diary -->
@@ -179,9 +280,20 @@
                 <button class="close-btn" onclick="goToMenu()">✕</button>
             </div>
             <div class="scene-content">
-                <textarea id="diaryTextarea" placeholder="Escreva uma memória..."></textarea>
+                <textarea id="diaryTextarea" placeholder="Escreva uma memória..." style="
+                    width: 100%;
+                    min-height: 150px;
+                    padding: 15px;
+                    background: rgba(255,107,157,0.05);
+                    border: 1px solid rgba(255,107,157,0.3);
+                    border-radius: 8px;
+                    color: white;
+                    font-family: inherit;
+                    margin-bottom: 15px;
+                    resize: vertical;
+                "></textarea>
                 <button class="btn btn-primary" onclick="saveDiaryEntry()">Salvar</button>
-                <div id="diaryEntries"></div>
+                <div id="diaryEntries" style="margin-top: 30px;"></div>
             </div>
         </section>
 
@@ -191,22 +303,91 @@
                 <h2>Fotos</h2>
                 <button class="close-btn" onclick="goToMenu()">✕</button>
             </div>
-            <div class="scene-content" id="galleryGrid"></div>
+            <div class="scene-content">
+                <div id="galleryGrid" class="gallery-grid">
+                    <div class="add-photo" style="
+                        grid-column: 1;
+                        aspect-ratio: 1;
+                        background: rgba(255,107,157,0.1);
+                        border: 2px dashed rgba(255,107,157,0.5);
+                        border-radius: 12px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        position: relative;
+                    ">
+                        <input type="file" accept="image/*" onchange="addPhoto(event)" style="
+                            position: absolute;
+                            width: 100%;
+                            height: 100%;
+                            opacity: 0;
+                            cursor: pointer;
+                        ">
+                        <div style="text-align: center; pointer-events: none;">
+                            <div style="font-size: 40px; margin-bottom: 10px;">📸</div>
+                            <div>Adicionar Foto</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Scene: Timer -->
         <section id="timer" class="scene hidden">
             <div class="scene-header">
-                <h2>Contador</h2>
+                <h2>Contador de Dias</h2>
                 <button class="close-btn" onclick="goToMenu()">✕</button>
             </div>
             <div class="scene-content">
-                <div id="timerDisplay"></div>
+                <div id="timerSetup" style="text-align: center; padding: 40px;">
+                    <h3 style="margin-bottom: 20px;">Desde quando estamos juntos?</h3>
+                    <input type="date" id="startDate" style="
+                        padding: 12px 20px;
+                        background: rgba(255,107,157,0.1);
+                        border: 1px solid rgba(255,107,157,0.3);
+                        border-radius: 8px;
+                        color: white;
+                        font-size: 16px;
+                        margin-bottom: 15px;
+                    ">
+                    <br>
+                    <button class="btn btn-primary" onclick="setStartDate()">Configurar</button>
+                </div>
+                <div id="timerDisplay" class="hidden" style="text-align: center; padding: 40px;">
+                    <h2 style="margin-bottom: 30px;">Dias Juntos</h2>
+                    <div style="
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                        gap: 20px;
+                        max-width: 500px;
+                        margin: 0 auto;
+                    ">
+                        <div style="background: rgba(255,107,157,0.1); padding: 20px; border-radius: 8px;">
+                            <div style="font-size: 36px; font-weight: bold; color: #ff6b9d;" id="days">0</div>
+                            <div style="color: #b0b0c8; margin-top: 10px;">Dias</div>
+                        </div>
+                        <div style="background: rgba(255,107,157,0.1); padding: 20px; border-radius: 8px;">
+                            <div style="font-size: 36px; font-weight: bold; color: #ff6b9d;" id="hours">0</div>
+                            <div style="color: #b0b0c8; margin-top: 10px;">Horas</div>
+                        </div>
+                        <div style="background: rgba(255,107,157,0.1); padding: 20px; border-radius: 8px;">
+                            <div style="font-size: 36px; font-weight: bold; color: #ff6b9d;" id="minutes">0</div>
+                            <div style="color: #b0b0c8; margin-top: 10px;">Minutos</div>
+                        </div>
+                        <div style="background: rgba(255,107,157,0.1); padding: 20px; border-radius: 8px;">
+                            <div style="font-size: 36px; font-weight: bold; color: #ff6b9d;" id="seconds">0</div>
+                            <div style="color: #b0b0c8; margin-top: 10px;">Segundos</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
 
     <script src="js/main.js"></script>
     <script src="js/quiz.js"></script>
+    <script src="js/memories.js"></script>
+    <script src="js/games.js"></script>
 </body>
 </html>
