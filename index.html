@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nossa História - Uma experiência romântica interativa e cinematográfica">
+    <title>Nossa História ❤️</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Audio Control -->
+    <div class="audio-control">
+        <button id="musicToggle" class="music-btn" title="Ativar/Desativar música">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.26 2.5-4.02zM14 3.1v2.7c2.89.86 5 3.54 5 6.8s-2.11 5.94-5 6.8v2.7c4.01-.91 7-4.49 7-9.5s-2.99-8.59-7-9.5z"/>
+            </svg>
+        </button>
+        <audio id="bgMusic" loop>
+            <source src="assets/audio/background-music.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>Nossa História</p>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div id="mainContainer" class="container hidden">
+        <!-- Scene: Opening Cinematic -->
+        <section id="openingScene" class="scene active">
+            <div class="opening-background">
+                <div class="stars"></div>
+                <div class="stars-light"></div>
+            </div>
+            
+            <div class="opening-content">
+                <div class="opening-text">
+                    <h1 class="title-main">Nossa História</h1>
+                    <p class="subtitle">Uma experiência romântica cinematográfica</p>
+                    <div class="decorative-line"></div>
+                </div>
+                
+                <div class="opening-animation">
+                    <div class="heart-pulse"></div>
+                    <div class="heart-pulse" style="animation-delay: 0.5s"></div>
+                </div>
+            </div>
+            
+            <div class="opening-footer">
+                <button id="startBtn" class="btn btn-primary">Começar</button>
+                <p class="skip-text">Pressione ESC para pular</p>
+            </div>
+        </section>
+
+        <!-- Scene: Two Points of Light (Introduction) -->
+        <section id="chapterOne" class="scene hidden">
+            <div class="scene-background">
+                <div class="gradient-overlay"></div>
+            </div>
+            
+            <div class="scene-content">
+                <h2>Capítulo 1: Dois Pontos de Luz</h2>
+                <div class="chapter-text">
+                    <p>Há histórias que começam com um olhar.</p>
+                    <p>Histórias que parecem pequenas no começo, mas que se tornam infinitas.</p>
+                    <p>Duas vidas, dois corações, encontrando-se na imensidão do universo.</p>
+                    <p class="signature">— Esta é a nossa história —</p>
+                </div>
+                <div class="navigation-buttons">
+                    <button class="btn btn-secondary" onclick="goToMenu()">Menu Principal</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene: Main Menu -->
+        <section id="mainMenu" class="scene hidden">
+            <div class="menu-background"></div>
+            
+            <div class="menu-content">
+                <h1>Nossa História</h1>
+                <nav class="menu-nav">
+                    <button class="menu-item" onclick="navigateTo('chapters')">
+                        <span class="icon">📖</span>
+                        <span>Capítulos</span>
+                    </button>
+                    <button class="menu-item" onclick="navigateTo('timeline')">
+                        <span class="icon">📍</span>
+                        <span>Mapa da História</span>
+                    </button>
+                    <button class="menu-item" onclick="navigateTo('memories')">
+                        <span class="icon">🔍</span>
+                        <span>Caça às Memórias</span>
+                    </button>
+                    <button class="menu-item" onclick="navigateTo('vault')">
+                        <span class="icon">🔐</span>
+                        <span>Cofre Secreto</span>
+                    </button>
+                    <button class="menu-item" onclick="navigateTo('quiz')">
+                        <span class="icon">💕</span>
+                        <span>Quiz Romântico</span>
+                    </button>
+                    <button class="menu-item" onclick="navigateTo('games')">
+                        <span class="icon">🎮</span>
+                        <span>Jogos</span>
+                    </button>
+                    <button class="menu-item" onclick="navigateTo('letter')">
+                        <span class="icon">💌</span>
+                        <span>Carta Romântica</span>
+                    </button>
+                    <button class="menu-item" onclick="navigateTo('diary')">
+                        <span class="icon">📔</span>
+                        <span>Diário</span>
+                    </button>
+                    <button class="menu-item" onclick="navigateTo('gallery')">
+                        <span class="icon">🖼️</span>
+                        <span>Fotos & Memórias</span>
+                    </button>
+                    <button class="menu-item" onclick="navigateTo('timer')">
+                        <span class="icon">⏰</span>
+                        <span>Contador</span>
+                    </button>
+                </nav>
+            </div>
+        </section>
+
+        <!-- Scene: Chapters -->
+        <section id="chapters" class="scene hidden">
+            <div class="scene-header">
+                <h2>Capítulos</h2>
+                <button class="close-btn" onclick="goToMenu()">✕</button>
+            </div>
+            
+            <div class="scene-content">
+                <div class="chapters-list">
+                    <div class="chapter-card" onclick="readChapter(1)">
+                        <div class="chapter-number">01</div>
+                        <h3>Dois Pontos de Luz</h3>
+                        <p>O começo de tudo</p>
+                        <span class="completion">0%</span>
+                    </div>
+                    <div class="chapter-card" onclick="readChapter(2)">
+                        <div class="chapter-number">02</div>
+                        <h3>Primeiro Encontro</h3>
+                        <p>O dia que tudo mudou</p>
+                        <span class="completion">0%</span>
+                    </div>
+                    <div class="chapter-card" onclick="readChapter(3)">
+                        <div class="chapter-number">03</div>
+                        <h3>Histórias Compartilhadas</h3>
+                        <p>Aprendendo um sobre o outro</p>
+                        <span class="completion">0%</span>
+                    </div>
+                    <div class="chapter-card" onclick="readChapter(4)">
+                        <div class="chapter-number">04</div>
+                        <h3>Momentos Mágicos</h3>
+                        <p>Memórias que ficarão para sempre</p>
+                        <span class="completion">0%</span>
+                    </div>
+                    <div class="chapter-card" onclick="readChapter(5)">
+                        <div class="chapter-number">05</div>
+                        <h3>Para Sempre</h3>
+                        <p>O compromisso de uma vida</p>
+                        <span class="completion">0%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene: Timeline -->
+        <section id="timeline" class="scene hidden">
+            <div class="scene-header">
+                <h2>Mapa da Nossa História</h2>
+                <button class="close-btn" onclick="goToMenu()">✕</button>
+            </div>
+            
+            <div class="scene-content">
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Primeiro Encontro</h3>
+                            <p class="date">[DATA A INSERIR]</p>
+                            <p>O momento em que duas vidas se cruzaram</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Primeiro Beijo</h3>
+                            <p class="date">[DATA A INSERIR]</p>
+                            <p>Quando soubemos que era amor</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Primeira Viagem</h3>
+                            <p class="date">[DATA A INSERIR]</p>
+                            <p>Explorando o mundo juntos</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Primeiro Presente Especial</h3>
+                            <p class="date">[DATA A INSERIR]</p>
+                            <p>Um momento inesquecível</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Momento Definitivo</h3>
+                            <p class="date">[DATA A INSERIR]</p>
+                            <p>Sabendo que seria para sempre</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene: Memory Hunt -->
+        <section id="memories" class="scene hidden">
+            <div class="scene-header">
+                <h2>Caça às Memórias</h2>
+                <button class="close-btn" onclick="goToMenu()">✕</button>
+            </div>
+            
+            <div class="scene-content">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="memoryProgress"></div>
+                </div>
+                <p class="progress-text"><span id="memoriesFound">0</span>/6 memórias encontradas</p>
+                
+                <div class="memories-grid" id="memoriesGrid">
+                    <!-- Memories will be generated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene: Vault -->
+        <section id="vault" class="scene hidden">
+            <div class="scene-header">
+                <h2>Cofre Secreto</h2>
+                <button class="close-btn" onclick="goToMenu()">✕</button>
+            </div>
+            
+            <div class="scene-content">
+                <div class="vault-container">
+                    <div class="vault-icon">🔐</div>
+                    <p>Existe um segredo guardado aqui...</p>
+                    <p class="hint">Dica: Pense em um momento especial de nossa história</p>
+                    
+                    <div class="vault-input-group">
+                        <input type="password" id="vaultPassword" placeholder="Digite a senha" class="vault-input">
+                        <button class="btn btn-primary" onclick="checkVaultPassword()">Abrir</button>
+                    </div>
+                    
+                    <div id="vaultContent" class="vault-content hidden">
+                        <h3>🎁 Segredo Desbloqueado!</h3>
+                        <p>[CONTEÚDO SECRETO A INSERIR]</p>
+                        <p class="secret-message">Esta mensagem especial estava guardada só para você ❤️</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene: Quiz -->
+        <section id="quiz" class="scene hidden">
+            <div class="scene-header">
+                <h2>Quiz Romântico</h2>
+                <button class="close-btn" onclick="goToMenu()">✕</button>
+            </div>
+            
+            <div class="scene-content">
+                <div id="quizContainer" class="quiz-container">
+                    <!-- Quiz will be generated by JavaScript -->
+                </div>
+                
+                <div id="quizResult" class="quiz-result hidden">
+                    <h3>Resultado</h3>
+                    <div id="resultContent"></div>
+                    <button class="btn btn-primary" onclick="resetQuiz()">Fazer Novamente</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene: Games -->
+        <section id="games" class="scene hidden">
+            <div class="scene-header">
+                <h2>Jogos</h2>
+                <button class="close-btn" onclick="goToMenu()">✕</button>
+            </div>
+            
+            <div class="scene-content">
+                <div class="games-menu">
+                    <button class="game-card" onclick="startGame('memory')">
+                        <span class="game-icon">🧩</span>
+                        <h3>Jogo da Memória</h3>
+                    </button>
+                    <button class="game-card" onclick="startGame('puzzle')">
+                        <span class="game-icon">🔲</span>
+                        <h3>Puzzle 3×3</h3>
+                    </button>
+                    <button class="game-card" onclick="startGame('hearts')">
+                        <span class="game-icon">❤️</span>
+                        <h3>Chuva de Corações</h3>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Memory Game -->
+            <div id="memoryGame" class="game-container hidden">
+                <div class="game-header">
+                    <h3>Jogo da Memória</h3>
+                    <button class="close-btn" onclick="closeGame()">✕</button>
+                </div>
+                <div id="memoryBoard" class="memory-board"></div>
+                <div class="game-stats">
+                    <p>Tentativas: <span id="attempts">0</span></p>
+                </div>
+            </div>
+
+            <!-- Puzzle Game -->
+            <div id="puzzleGame" class="game-container hidden">
+                <div class="game-header">
+                    <h3>Puzzle 3×3</h3>
+                    <button class="close-btn" onclick="closeGame()">✕</button>
+                </div>
+                <div class="puzzle-container">
+                    <div id="puzzleBoard" class="puzzle-board"></div>
+                    <div id="puzzlePreview" class="puzzle-preview"></div>
+                </div>
+                <div class="game-stats">
+                    <button class="btn btn-secondary" onclick="resetPuzzle()">Reiniciar</button>
+                </div>
+            </div>
+
+            <!-- Hearts Rain Game -->
+            <div id="heartsGame" class="game-container hidden">
+                <div class="game-header">
+                    <h3>Chuva de Corações</h3>
+                    <button class="close-btn" onclick="closeGame()">✕</button>
+                </div>
+                <div class="hearts-container" id="heartsContainer"></div>
+                <div class="game-stats">
+                    <p>Corações coletados: <span id="heartsCollected">0</span>/15</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene: Letter -->
+        <section id="letter" class="scene hidden">
+            <div class="scene-header">
+                <h2>Carta Romântica</h2>
+                <button class="close-btn" onclick="goToMenu()">✕</button>
+            </div>
+            
+            <div class="scene-content">
+                <div class="letter-container">
+                    <div class="letter-paper">
+                        <p class="letter-greeting">Meu amor,</p>
+                        <div id="letterText" class="letter-text"></div>
+                        <p class="letter-closing">Para sempre seu,<br>❤️</p>
+                    </div>
+                    <button class="btn btn-secondary" onclick="startLetterAnimation()">Ler Carta</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene: Diary -->
+        <section id="diary" class="scene hidden">
+            <div class="scene-header">
+                <h2>Diário da Nossa História</h2>
+                <button class="close-btn" onclick="goToMenu()">✕</button>
+            </div>
+            
+            <div class="scene-content">
+                <div class="diary-container">
+                    <div class="diary-entry" id="diaryEntries">
+                        <!-- Entries will be added here -->
+                    </div>
+                    <textarea id="diaryTextarea" placeholder="Escreva uma nova memória..."></textarea>
+                    <button class="btn btn-primary" onclick="saveDiaryEntry()">Salvar Memória</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene: Gallery -->
+        <section id="gallery" class="scene hidden">
+            <div class="scene-header">
+                <h2>Fotos & Memórias</h2>
+                <button class="close-btn" onclick="goToMenu()">✕</button>
+            </div>
+            
+            <div class="scene-content">
+                <div class="gallery-container">
+                    <div class="gallery-grid" id="galleryGrid">
+                        <div class="gallery-item add-photo">
+                            <input type="file" id="photoInput" accept="image/*" onchange="addPhoto(event)" style="display:none;">
+                            <button onclick="document.getElementById('photoInput').click()" class="add-btn">
+                                <span>+</span>
+                                <p>Adicionar Foto</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene: Timer -->
+        <section id="timer" class="scene hidden">
+            <div class="scene-header">
+                <h2>Tempo Juntos</h2>
+                <button class="close-btn" onclick="goToMenu()">✕</button>
+            </div>
+            
+            <div class="scene-content">
+                <div class="timer-container">
+                    <div class="timer-setup hidden" id="timerSetup">
+                        <p>Qual é a data do nosso primeiro encontro?</p>
+                        <input type="date" id="startDate" class="timer-input">
+                        <button class="btn btn-primary" onclick="setStartDate()">Confirmar</button>
+                    </div>
+                    
+                    <div class="timer-display hidden" id="timerDisplay">
+                        <div class="timer-box">
+                            <div class="timer-value" id="days">0</div>
+                            <div class="timer-label">Dias</div>
+                        </div>
+                        <div class="timer-box">
+                            <div class="timer-value" id="hours">0</div>
+                            <div class="timer-label">Horas</div>
+                        </div>
+                        <div class="timer-box">
+                            <div class="timer-value" id="minutes">0</div>
+                            <div class="timer-label">Minutos</div>
+                        </div>
+                        <div class="timer-box">
+                            <div class="timer-value" id="seconds">0</div>
+                            <div class="timer-label">Segundos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene: Final -->
+        <section id="finale" class="scene hidden">
+            <div class="finale-background">
+                <div class="stars"></div>
+            </div>
+            
+            <div class="finale-content">
+                <h1>Fim de um Começo</h1>
+                <p class="finale-text">Esta é a nossa história.</p>
+                <p class="finale-text">Não é perfeita, mas é verdadeira.</p>
+                <p class="finale-text">E o melhor está por vir.</p>
+                
+                <div class="finale-hearts"></div>
+                
+                <button class="btn btn-primary" onclick="goToMenu()">Voltar ao Início</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/memories.js"></script>
+    <script src="js/games.js"></script>
+    <script src="js/quiz.js"></script>
+</body>
+</html>
